@@ -1,0 +1,15 @@
+framework:
+    messenger:
+        transports:
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: 'async_exchange'
+                        type: 'topic'  # Используем topic exchange для гибкости маршрутизации
+                    queues:
+                        async_queue:
+                            binding_keys: ['#']
+        routing:
+            # Указываем транспорт для асинхронных сообщений
+            'App\Message\TaskCreatedEvent': async
